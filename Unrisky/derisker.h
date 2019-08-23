@@ -180,7 +180,7 @@ public:
         break;
       }
       char buf[1000];
-      snprintf(buf, 1000, "%+5.2f [$%6.2f] @ #%d: %s", market.advantage, market.risk, market.id, market.name.c_str());
+      snprintf(buf, 1000, "%+5.2f [$%.2f] @ #%d: %s", market.advantage, market.risk, market.id, market.name.c_str());
       std::cout << buf << std::endl;
     }
     
@@ -199,7 +199,7 @@ public:
     if (markets.empty()) {
       std::cout << "No markets can be found in the JSON file. (Is PredictIt down?)" << std::endl;
     } else {
-      displaySortedMarketList(markets, 0.05f);
+      displaySortedMarketList(markets, 0.00f);  // TODO: Make constant or parameter
     }
     std::cout << std::endl;
   }
@@ -229,13 +229,16 @@ public:
 
     // Now comes the fun part... We want to buy expensive shares until we max out; then for each
     // subsequent option, buy shares until just before we would decrease our risk.
-    float risk = 0.00f;
-    float last_risk = 0.00f;
     auto it = ownership.stakes.begin();
     it->num_shares =
         static_cast<int>(floor(max_stake / ownership.stakes.front().contract.best_buy_no_cost));
+    int last_shares = it->num_shares;
+    float risk = ownership.getRisk(fee_ratio);
+    float last_risk = risk;
+    ++it;
     while (it != ownership.stakes.end()) {
       // Calculate starting values...
+      it->num_shares = last_shares;
       risk = ownership.getRisk(fee_ratio);
       last_risk = risk;
       bool max_found = false;
@@ -246,6 +249,7 @@ public:
         if (risk < last_risk) {
           // Back up by one, since this was the first instance in which we lost money.
           --(it->num_shares);
+          last_shares = it->num_shares;
           max_found = true;
         } else {
           last_risk = risk;
