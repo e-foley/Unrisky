@@ -87,15 +87,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="json11.cpp" />
-    <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="Unrisky.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="derisker.h" />
     <ClInclude Include="json11.hpp" />
-    <ClInclude Include="nlohmann\adl_serializer.hpp" />
-    <ClInclude Include="tao\json.hpp" />
-    <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
