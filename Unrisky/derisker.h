@@ -3,16 +3,25 @@
 #include "json11.hpp"
 #include <iostream>
 #include <fstream>
+#include <list>
 #include <string>
 #include <iomanip>
 #include <vector>
 #include <sstream>
 #include <algorithm>
 
+// Information about a proposition that may resolve "yes" or "no."
+struct Contract {
+  int id = -1;
+  float best_buy_no_cost = 0.00f;
+};
+
+// Information about a market, or a collection of linked contracts.
 struct Market {
   int id = -1;
   std::string name;
-  float advantage = 0.0f;
+  float advantage = 0.0f;  // TODO: Retire me?
+  std::list<Contract> contracts;
 };
 
 class Derisker {
@@ -31,32 +40,37 @@ public:
     const Json::array markets_json = json["markets"].array_items();
 
     for (const auto& market_json : markets_json) {
-      Market data;
-      data.id = market_json["id"].int_value();
-      data.name = market_json["name"].string_value();
+      Market market;
+      market.id = market_json["id"].int_value();
+      market.name = market_json["name"].string_value();
 
       float buy_no_cost_sum = 0.0f;
 
       const Json::array contracts_json = market_json["contracts"].array_items();
       for (const auto& contract_json : contracts_json) {
-        Json best_buy_no_cost = contract_json["bestBuyNoCost"];
-        switch (best_buy_no_cost.type()) {
-        case Json::NUL:
-          buy_no_cost_sum += 1.00f;
-          break;
-        case Json::NUMBER:
-          buy_no_cost_sum += static_cast<float>(best_buy_no_cost.number_value());
-          break;
-        default:
-          buy_no_cost_sum += 1.00f;
-          std::cout << "Unknown bestBuyNoCost type." << std::endl;
-          break;
+        // TODO: be more careful here to ensure ID values are present and unique
+        Contract contract;
+        contract.id = contract_json["id"].int_value();
+        Json best_buy_no_cost_json = contract_json["bestBuyNoCost"];
+        switch (best_buy_no_cost_json.type()) {
+          case Json::NUL:
+            // This branch is hit when there are no shares available to buy.
+            contract.best_buy_no_cost = 1.00f;
+            break;
+          case Json::NUMBER:
+            contract.best_buy_no_cost = static_cast<float>(best_buy_no_cost_json.number_value());
+            break;
+          default:
+            contract.best_buy_no_cost = 1.00f;
+            std::cout << "Unknown bestBuyNoCost type." << std::endl;
+            break;
         }
+        buy_no_cost_sum += contract.best_buy_no_cost;
       }
 
-      data.advantage = contracts_json.size() - 1 - buy_no_cost_sum;
+      market.advantage = contracts_json.size() - 1 - buy_no_cost_sum;
 
-      markets.emplace_back(data);
+      markets.emplace_back(market);
     }
 
     *markets_out = markets;
