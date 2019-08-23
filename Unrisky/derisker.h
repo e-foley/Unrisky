@@ -9,7 +9,7 @@
 #include <sstream>
 #include <algorithm>
 
-struct MarketData {
+struct Market {
   int id = -1;
   std::string name;
   float advantage = 0.0f;
@@ -17,8 +17,8 @@ struct MarketData {
 
 class Derisker {
 public:
-  static void buildMarketListJson(const std::stringstream& buffer, std::vector<MarketData>* const markets_out) {
-    std::vector<MarketData> markets;
+  static void buildMarketListJson(const std::stringstream& buffer, std::vector<Market>* const markets_out) {
+    std::vector<Market> markets;
     using Json = json11::Json;
     Json json;
     std::string error;
@@ -27,7 +27,7 @@ public:
     const Json::array markets_json = json["markets"].array_items();
 
     for (const auto& market_json : markets_json) {
-      MarketData data;
+      Market data;
       data.id = market_json["id"].int_value();
       data.name = market_json["name"].string_value();
 
@@ -58,16 +58,16 @@ public:
     *markets_out = markets;
   }
 
-  static void displaySortedMarketList(std::vector<MarketData>& markets, const float advantage_threshold) {
+  static void displaySortedMarketList(std::vector<Market>& markets, const float advantage_threshold) {
     // Sort the markets by the advantage they offer. This puts them in ascending order.
     std::sort(markets.begin(), markets.end(),
-        [](const MarketData& a, const MarketData& b) {return a.advantage < b.advantage;});
+        [](const Market& a, const Market& b) {return a.advantage < b.advantage;});
 
     // Flip the order so that we're in descending order, which is more useful to us.
     std::reverse(markets.begin(), markets.end());
 
     std::cout << "Displaying markets with advantage >= " << advantage_threshold << "..." << std::endl;
-    for (const MarketData& market : markets) {
+    for (const Market& market : markets) {
       if (market.advantage < advantage_threshold) {
         break;
       }
@@ -86,7 +86,7 @@ public:
     std::stringstream buffer;
     buffer << t.rdbuf();
 
-    std::vector<MarketData> markets;
+    std::vector<Market> markets;
     buildMarketListJson(buffer, &markets);
     if (markets.empty()) {
       std::cout << "No markets can be found in the JSON file. (Is PredictIt down?)" << std::endl;
