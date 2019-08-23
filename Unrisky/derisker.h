@@ -20,8 +20,96 @@ struct Contract {
 struct Market {
   int id = -1;
   std::string name;
-  float advantage = 0.0f;  // TODO: Retire me?
+  float advantage = 0.0f;  // TODO: Move me?
+  float risk = 0.00f;  // TODO: Move me?
   std::list<Contract> contracts;
+};
+
+// Represents ownership of a single contract.
+struct Stake {
+  Contract contract;
+  int num_shares = 0;
+
+  // TODO: Consider C-style static function equivalent for this and other derived stats (e.g. getRisk()).
+  // NOTE: Experimental implementation to get hang of handling output parameters.
+  float getValue() const {
+    float ret;
+    if (!tryGetValue(&ret)) {
+      return 0.0f;
+    }
+
+    return ret;
+  }
+
+  // Experimental alternative syntax.
+  bool tryGetValue(float* const out_value) const {
+    if (out_value == nullptr) {
+      return false;
+    }
+    
+    *out_value = num_shares * contract.best_buy_no_cost;
+    return true;
+  }
+};
+
+// Represents ownership of multiple contracts within one market.
+struct MarketOwnership {
+  std::list<Stake> stakes;
+
+  float getRisk(const float fee_ratio) const {
+    if (stakes.empty()) {
+      std::cout << "BAD" << std::endl;
+      return 0.00f;
+    }
+
+    // Utility struct to link a stake with other data.
+    struct RiskHelper {
+      Stake stake;
+      float value = 0.00f;
+      float no_result_worth = 0.00f;
+      float risk = 0.00f;
+    };
+
+    std::list<RiskHelper> risk_helpers;
+
+    // Build risk helpers by working through stakes twice:
+    // 1) Copy stake, copy value, and calculate worth in case contract resolves "no."
+    // 2) Calculate risk.
+    float value_sum = 0.00f;
+    float no_result_worth_sum = 0.00f;
+    for (const Stake& stake : stakes) {
+      RiskHelper risk_helper;
+      risk_helper.stake = stake;
+      risk_helper.value = stake.getValue();
+      // You maintain the original value and receive a portion of your profit.
+      risk_helper.no_result_worth = risk_helper.value +
+          (1.0f - fee_ratio) * stake.num_shares * (1.00f - stake.contract.best_buy_no_cost);
+
+      risk_helpers.push_back(risk_helper);
+      value_sum += risk_helper.value;
+      no_result_worth_sum += risk_helper.no_result_worth;
+    }
+
+    float min_risk = INFINITY;
+    for (RiskHelper& risk_helper : risk_helpers) {
+      // Risk is what you would win less what you have paid total if contract resolves "yes."
+      risk_helper.risk = no_result_worth_sum - risk_helper.no_result_worth - value_sum;
+      if (risk_helper.risk < min_risk) {
+        min_risk = risk_helper.risk;
+      }
+    }
+
+    return min_risk;
+  }
+
+  void printOwnership() const {
+    std::list<Stake>::const_reverse_iterator it;
+    for (it = stakes.crbegin(); it != stakes.crend(); ++it) {
+      char buf[1000];
+      snprintf(buf, 1000, "#%d (%4.2f) x %d", it->contract.id, it->contract.best_buy_no_cost, it->num_shares);
+      std::cout << buf << std::endl;
+    }
+  }
 };
 
 class Derisker {
@@ -70,7 +158,8 @@ public:
       }
 
       market.advantage = market.contracts.size() - 1 - buy_no_cost_sum;
-
+      MarketOwnership ownership;
+      getIdealMarketOwnership(market, 850.00f, 0.10f, &ownership, &market.risk);
       markets.emplace_back(market);
     }
 
@@ -91,7 +180,7 @@ public:
         break;
       }
       char buf[1000];
-      snprintf(buf, 1000, "%+5.2f @ #%d: %s", market.advantage, market.id, market.name.c_str());
+      snprintf(buf, 1000, "%+5.2f [$%6.2f] @ #%d: %s", market.advantage, market.risk, market.id, market.name.c_str());
       std::cout << buf << std::endl;
     }
     
@@ -115,12 +204,57 @@ public:
     std::cout << std::endl;
   }
 
-  static void calculateProfitMin(const Market& market, const float fee_pct, float* const profit_min_out) {
-    if (profit_min_out == nullptr) {
+  static void getIdealMarketOwnership(const Market& market, const float max_stake, const float fee_ratio,
+      MarketOwnership* const market_ownership_out, float* risk_out) {
+    if (market_ownership_out == nullptr || risk_out == nullptr) {
       return;
     }
 
-    *profit_min_out = 0;
+    if (market.contracts.empty()) {
+      return;
+    }
+
+    MarketOwnership& ownership = *market_ownership_out;
+    ownership = MarketOwnership();
+
+    // Populate ownership's stakes with the contracts in the sorted market, ordered from most to
+    // least expensive.
+    Market market_temp = market;
+    market_temp.contracts.sort([](Contract& a, Contract& b) {
+      return a.best_buy_no_cost > b.best_buy_no_cost;
+    });
+    for (const Contract& contract : market_temp.contracts) {
+      ownership.stakes.push_back({contract, 0});
+    }
+
+    // Now comes the fun part... We want to buy expensive shares until we max out; then for each
+    // subsequent option, buy shares until just before we would decrease our risk.
+    float risk = 0.00f;
+    float last_risk = 0.00f;
+    auto it = ownership.stakes.begin();
+    it->num_shares =
+        static_cast<int>(floor(max_stake / ownership.stakes.front().contract.best_buy_no_cost));
+    while (it != ownership.stakes.end()) {
+      // Calculate starting values...
+      risk = ownership.getRisk(fee_ratio);
+      last_risk = risk;
+      bool max_found = false;
+      // Now iterate.
+      while (!max_found) {
+        ++(it->num_shares);
+        risk = ownership.getRisk(fee_ratio);
+        if (risk < last_risk) {
+          // Back up by one, since this was the first instance in which we lost money.
+          --(it->num_shares);
+          max_found = true;
+        } else {
+          last_risk = risk;
+        }
+      }
+      ++it;  // Increment iterator.
+    }
+
+    *risk_out = last_risk;
 
     return;
   }
