@@ -18,6 +18,10 @@ struct Market {
 class Derisker {
 public:
   static void buildMarketListJson(const std::stringstream& buffer, std::vector<Market>* const markets_out) {
+    if (markets_out == nullptr) {
+      return;
+    }
+
     std::vector<Market> markets;
     using Json = json11::Json;
     Json json;
@@ -94,5 +98,15 @@ public:
       displaySortedMarketList(markets, 0.05f);
     }
     std::cout << std::endl;
+  }
+
+  static void calculateProfitMin(const Market& market, const float fee_pct, float* const profit_min_out) {
+    if (profit_min_out == nullptr) {
+      return;
+    }
+
+    *profit_min_out = 0;
+
+    return;
   }
 };
