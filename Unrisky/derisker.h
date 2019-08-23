@@ -66,9 +66,10 @@ public:
             break;
         }
         buy_no_cost_sum += contract.best_buy_no_cost;
+        market.contracts.push_back(contract);
       }
 
-      market.advantage = contracts_json.size() - 1 - buy_no_cost_sum;
+      market.advantage = market.contracts.size() - 1 - buy_no_cost_sum;
 
       markets.emplace_back(market);
     }
