@@ -1,7 +1,7 @@
 @echo off
 :do_the_thing
 python pull_new_json.py
-..\x64\Release\Unrisky.exe "C:\Users\Ed\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\Unrisky\all.json"
+..\x64\Release\Unrisky.exe "C:\Users\Ed\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\Unrisky\all.json" -10.00
 
 set resp=""
 set /p resp="Check again? (y/N) "

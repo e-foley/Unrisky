@@ -166,30 +166,40 @@ public:
     *markets_out = markets;
   }
 
-  static void displaySortedMarketList(std::vector<Market>& markets, const float advantage_threshold) {
-    // Sort the markets by the advantage they offer. This puts them in ascending order.
-    std::sort(markets.begin(), markets.end(),
-        [](const Market& a, const Market& b) {return a.advantage < b.advantage;});
+  static void displaySortedMarketList(const std::vector<Market>& markets, const float risk_threshold) {
+    // Reduce the markets to those that qualify. (Use a new vector to build this.)
+    std::vector<Market> qualifying_markets;
+    for (const auto& m : markets) {
+      if (m.risk > risk_threshold) {
+        qualifying_markets.push_back(m);
+      }
+    }
 
-    // Flip the order so that we're in descending order, which is more useful to us.
-    std::reverse(markets.begin(), markets.end());
+    // Sort the remaining markets by their amount of risk in descending order.
+    std::sort(qualifying_markets.begin(), qualifying_markets.end(),
+        [](const Market& a, const Market& b) {return a.risk > b.risk;});
 
-    std::cout << "Displaying markets with advantage >= " << advantage_threshold << "..." << std::endl;
-    for (const Market& market : markets) {
-      if (market.advantage < advantage_threshold) {
+    printf("Displaying markets with risk >= $%.2f...", risk_threshold);
+    std::cout << std::endl;
+    for (const Market& qm : qualifying_markets) {
+      if (qm.risk < risk_threshold) {
         break;
       }
       char buf[1000];
-      snprintf(buf, 1000, "%+5.2f [$%.2f] @ #%d: %s", market.advantage, market.risk, market.id, market.name.c_str());
+      snprintf(buf, 1000, "$%6.2f [%+5.2f] @ #%d: %s", qm.risk, qm.advantage, qm.id, qm.name.c_str());
       std::cout << buf << std::endl;
     }
     
-    if (markets.empty()) {
+    if (qualifying_markets.empty()) {
       std::cout << "(No markets meet the criteria.)" << std::endl;
     }
   }
 
-  static void processJson(const char* const file_name) {
+  static void processJson(const char* const file_name, const float min_risk) {
+    if (file_name == nullptr) {
+      return;
+    }
+
     std::ifstream t(file_name);
     std::stringstream buffer;
     buffer << t.rdbuf();
@@ -199,7 +209,7 @@ public:
     if (markets.empty()) {
       std::cout << "No markets can be found in the JSON file. (Is PredictIt down?)" << std::endl;
     } else {
-      displaySortedMarketList(markets, 0.00f);  // TODO: Make constant or parameter
+      displaySortedMarketList(markets, min_risk);
     }
     std::cout << std::endl;
   }

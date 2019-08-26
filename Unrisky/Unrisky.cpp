@@ -1,5 +1,18 @@
 #include "derisker.h"
+#include <iostream>
 
 int main(int argc, char* argv[]) {
-  Derisker::processJson(argv[1]);
+  switch (argc) {
+    default:
+    case 0:
+    case 1:
+      std::cout << "Usage: Unrisky.exe json_file [min_risk]" << std::endl;
+      break;
+    case 2:
+      Derisker::processJson(argv[1], 0.00f);
+      break;
+    case 3:
+      Derisker::processJson(argv[1], atof(argv[2]));
+      break;
+  }
 }
