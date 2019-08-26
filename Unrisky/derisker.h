@@ -158,7 +158,7 @@ public:
       }
 
       market.advantage = market.contracts.size() - 1 - buy_no_cost_sum;
-      MarketOwnership ownership;
+      MarketOwnership ownership;  // NOTE: We don't use this at all right now.
       getIdealMarketOwnership(market, 850.00f, 0.10f, &ownership, &market.risk);
       markets.emplace_back(market);
     }
