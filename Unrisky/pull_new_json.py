@@ -5,7 +5,7 @@ r = requests.get(page_url)  # create HTTP response object
 
 # send a HTTP request to the server and save
 # the HTTP response in a response object called r
-with open("all.json",'w') as f:
+with open("all.json",'w', encoding="utf-8") as f:
 
     # Saving received content as a png file in
     # binary format
