@@ -58,11 +58,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Ed\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\Unrisky\tao;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\include;C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\include\msvc;C:\Users\Ed\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\Unrisky\tao;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\lib\vc_x64_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -76,21 +77,24 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Ed\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\Unrisky\tao;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\include;C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\include\msvc;C:\Users\Ed\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\Unrisky\tao;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\lib\vc_x64_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="gui.cpp" />
     <ClCompile Include="json11.cpp" />
     <ClCompile Include="Unrisky.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="derisker.h" />
+    <ClInclude Include="gui.h" />
     <ClInclude Include="json11.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
