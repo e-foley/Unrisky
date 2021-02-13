@@ -61,7 +61,7 @@
       <AdditionalIncludeDirectories>C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\include;C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\include\msvc;C:\Users\Ed\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\Unrisky\tao;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\lib\vc_x64_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -80,7 +80,7 @@
       <AdditionalIncludeDirectories>C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\include;C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\include\msvc;C:\Users\Ed\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\Unrisky\tao;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -90,12 +90,14 @@
   <ItemGroup>
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="json11.cpp" />
+    <ClCompile Include="markets_frame.cpp" />
     <ClCompile Include="Unrisky.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="derisker.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="json11.hpp" />
+    <ClInclude Include="markets_frame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
