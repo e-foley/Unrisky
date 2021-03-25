@@ -108,7 +108,7 @@ void Derisker::processJson(const char* const file_name, const float min_risk) {
 }
 
 void Derisker::getIdealMarketOwnership(const Market& market, const float max_stake, const float fee_ratio,
-  MarketOwnership* const market_ownership_out, float* risk_out) {
+    MarketOwnership* const market_ownership_out, float* risk_out) {
   if (market_ownership_out == nullptr || risk_out == nullptr) {
     return;
   }
