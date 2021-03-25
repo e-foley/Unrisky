@@ -95,6 +95,7 @@
     <ClCompile Include="Unrisky.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="contract.h" />
     <ClInclude Include="derisker.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="json11.hpp" />

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "contract.h"
 #include "json11.hpp"
 #include <iostream>
 #include <fstream>
@@ -9,12 +10,6 @@
 #include <vector>
 #include <sstream>
 #include <algorithm>
-
-// Information about a proposition that may resolve "yes" or "no."
-struct Contract {
-  int id = -1;
-  float best_buy_no_cost = 0.00f;
-};
 
 // Information about a market, or a collection of linked contracts.
 struct Market {
