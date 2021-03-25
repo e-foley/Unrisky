@@ -59,5 +59,8 @@
     <ClInclude Include="stake.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="market_ownership.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

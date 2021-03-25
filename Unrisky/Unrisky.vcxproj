@@ -102,6 +102,7 @@
     <ClInclude Include="market.h" />
     <ClInclude Include="markets_frame.h" />
     <ClInclude Include="markets_model.h" />
+    <ClInclude Include="market_ownership.h" />
     <ClInclude Include="market_summary_list_view.h" />
     <ClInclude Include="stake.h" />
   </ItemGroup>
