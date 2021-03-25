@@ -1,6 +1,7 @@
 #pragma once
 
 #include "contract.h"
+#include "market.h"
 #include "json11.hpp"
 #include <iostream>
 #include <fstream>
@@ -10,15 +11,6 @@
 #include <vector>
 #include <sstream>
 #include <algorithm>
-
-// Information about a market, or a collection of linked contracts.
-struct Market {
-  int id = -1;
-  std::string name;
-  float advantage = 0.0f;  // TODO: Move me?
-  float risk = 0.00f;  // TODO: Move me?
-  std::list<Contract> contracts;
-};
 
 // Represents ownership of a single contract.
 struct Stake {

@@ -56,7 +56,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\include;C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\include\msvc;C:\Users\Ed\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\Unrisky\tao;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -75,7 +75,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\include;C:\Users\edism\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\wxWidgets\include\msvc;C:\Users\Ed\Documents\SpiderOak Hive\Creations\Code\C++\Unrisky\Unrisky\tao;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -99,6 +99,7 @@
     <ClInclude Include="derisker.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="json11.hpp" />
+    <ClInclude Include="market.h" />
     <ClInclude Include="markets_frame.h" />
     <ClInclude Include="markets_model.h" />
     <ClInclude Include="market_summary_list_view.h" />

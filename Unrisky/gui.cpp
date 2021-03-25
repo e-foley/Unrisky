@@ -1,3 +1,4 @@
+#include "derisker.h"
 #include "gui.h"
 #include "markets_frame.h"
 #include <wx/frame.h>

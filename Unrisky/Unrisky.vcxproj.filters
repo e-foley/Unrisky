@@ -53,5 +53,8 @@
     <ClInclude Include="contract.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="market.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
