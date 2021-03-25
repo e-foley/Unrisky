@@ -30,6 +30,9 @@
     <ClCompile Include="market_summary_list_view.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="derisker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="derisker.h">
