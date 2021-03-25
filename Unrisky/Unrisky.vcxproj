@@ -91,6 +91,7 @@
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="json11.cpp" />
     <ClCompile Include="markets_frame.cpp" />
+    <ClCompile Include="market_summary_list_view.cpp" />
     <ClCompile Include="Unrisky.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +99,8 @@
     <ClInclude Include="gui.h" />
     <ClInclude Include="json11.hpp" />
     <ClInclude Include="markets_frame.h" />
+    <ClInclude Include="markets_model.h" />
+    <ClInclude Include="market_summary_list_view.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
