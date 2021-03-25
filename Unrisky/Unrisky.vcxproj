@@ -103,6 +103,7 @@
     <ClInclude Include="markets_frame.h" />
     <ClInclude Include="markets_model.h" />
     <ClInclude Include="market_summary_list_view.h" />
+    <ClInclude Include="stake.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
