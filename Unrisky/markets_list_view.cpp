@@ -8,6 +8,13 @@ MarketsListView::MarketsListView(wxWindow* parent, wxWindowID winid, const wxPoi
   AppendColumn("Profit");
 }
 
-void display(const MarketsModel& markets_model) {
-  return;
+void MarketsListView::display(const MarketsModel& markets_model) {
+  int index = 0;
+  for (const auto& market : markets_model.markets_) {
+    // TODO: Replace with same modular column logic.
+    InsertItem(index, std::to_string(market.id));
+    SetItem(index, 1, market.name);
+    SetItem(index, 2, std::to_string(market.advantage));
+    ++index;
+  }
 }
