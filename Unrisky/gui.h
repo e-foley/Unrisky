@@ -6,7 +6,12 @@
 #include <wx/wx.h>
 #endif
 
+#include "markets_list_view.h"
+
 class UnriskyGui : public wxApp {
-public:
-  virtual bool OnInit();
+  public:
+    virtual bool OnInit();
+
+  private:
+    MarketsListView* lv_markets_;
 };

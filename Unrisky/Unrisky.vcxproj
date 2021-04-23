@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -92,6 +92,7 @@
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="json11.cpp" />
     <ClCompile Include="markets_frame.cpp" />
+    <ClCompile Include="markets_list_view.cpp" />
     <ClCompile Include="market_summary_list_view.cpp" />
     <ClCompile Include="Unrisky.cpp" />
   </ItemGroup>
@@ -102,6 +103,7 @@
     <ClInclude Include="json11.hpp" />
     <ClInclude Include="market.h" />
     <ClInclude Include="markets_frame.h" />
+    <ClInclude Include="markets_list_view.h" />
     <ClInclude Include="markets_model.h" />
     <ClInclude Include="market_ownership.h" />
     <ClInclude Include="market_summary_list_view.h" />

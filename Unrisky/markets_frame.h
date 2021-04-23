@@ -1,6 +1,7 @@
 #pragma once
 
 #include <wx/frame.h>
+//#include <wx/panel.h>
 
 class MarketsFrame : public wxFrame {
  public:
@@ -12,6 +13,8 @@ class MarketsFrame : public wxFrame {
   void OnAbout(wxCommandEvent& event);
 
   wxDECLARE_EVENT_TABLE();
+
+  //wxPanel* panel_:
 };
 
 enum { ID_Hello = 1 };

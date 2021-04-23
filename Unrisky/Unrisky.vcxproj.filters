@@ -33,6 +33,9 @@
     <ClCompile Include="derisker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="markets_list_view.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="derisker.h">
@@ -63,6 +66,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="market_ownership.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="markets_list_view.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
