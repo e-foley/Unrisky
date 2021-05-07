@@ -9,8 +9,12 @@ MarketsListView::MarketsListView(wxWindow* parent, wxWindowID winid, const wxPoi
 }
 
 void MarketsListView::display(const MarketsModel& markets_model) {
+  MarketsModel sorted_model = markets_model;
+  sorted_model.markets_.sort(compareRisk);
+  sorted_model.markets_.reverse();
+
   int index = 0;
-  for (const auto& market : markets_model.markets_) {
+  for (const auto& market : sorted_model.markets_) {
     // TODO: Replace with same modular column logic.
     InsertItem(index, std::to_string(market.id));
     SetItem(index, 1, market.name);
@@ -29,4 +33,8 @@ std::string MarketsListView::formatFinanceString(const float money) {
   }
 
   return buffer;
+}
+
+bool MarketsListView::compareRisk(const Market& a, const Market& b) {
+  return a.risk < b.risk;
 }

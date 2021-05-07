@@ -11,4 +11,6 @@ class MarketsListView : public wxListView {
     void display(const MarketsModel& markets_model);
 
     static std::string formatFinanceString(float money);
+
+    static bool compareRisk(const Market& a, const Market& b);
 };
