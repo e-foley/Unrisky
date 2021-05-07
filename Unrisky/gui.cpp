@@ -5,15 +5,21 @@
 #include <fstream>
 #include <sstream>
 #include <wx/frame.h>
+#include <wx/sizer.h>
 #include <wx/listctrl.h>
 
 bool UnriskyGui::OnInit() {
   MarketsFrame* frame = new MarketsFrame("Hello World", wxPoint(50, 50), wxSize(450, 340));
-  
   wxPanel* panel = new wxPanel(frame, wxID_ANY);
+  wxBoxSizer* sz_top = new wxBoxSizer(wxVERTICAL);
 
+  wxStaticBoxSizer* sz_markets = new wxStaticBoxSizer(wxVERTICAL, panel, "Markets");
+  sz_top->Add(sz_markets, 1, wxEXPAND | wxALL, 5);
   lv_markets_ = new MarketsListView(panel);
-  lv_markets_->Show();
+  sz_markets->Add(lv_markets_, 1, wxEXPAND);
+
+  panel->Show();
+  //frame->SetSizer()
 
   // TODO: Change this, obviously.
   std::ifstream t("all.json");
@@ -37,6 +43,8 @@ bool UnriskyGui::OnInit() {
 
   lv_markets_->display(markets_model);
 
+  panel->SetSizer(sz_top);
+  frame->Center();
   frame->Show(true);
   return true;
 }
