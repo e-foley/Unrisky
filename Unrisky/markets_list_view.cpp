@@ -5,7 +5,7 @@ MarketsListView::MarketsListView(wxWindow* parent, wxWindowID winid, const wxPoi
   // TODO: Replace with InsertColumn() and more modular structure.
   AppendColumn("ID");
   AppendColumn("Name");
-  AppendColumn("Profit");
+  AppendColumn("Profit", wxLIST_FORMAT_RIGHT);
 }
 
 void MarketsListView::display(const MarketsModel& markets_model) {
