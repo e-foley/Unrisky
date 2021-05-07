@@ -17,7 +17,7 @@ void MarketsListView::display(const MarketsModel& markets_model) {
   for (const auto& market : sorted_model.markets_) {
     // TODO: Replace with same modular column logic.
     InsertItem(index, std::to_string(market.id));
-    SetItem(index, 1, market.name);
+    SetItem(index, 1, market.short_name);
     SetItem(index, 2, formatFinanceString(market.risk));
     ++index;
   }
