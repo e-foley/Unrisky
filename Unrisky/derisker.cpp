@@ -24,6 +24,9 @@ void Derisker::buildMarketListJson(const std::stringstream& buffer, std::vector<
     Market market;
     market.id = market_json["id"].int_value();
     market.name = market_json["name"].string_value();
+    market.short_name = market_json["shortName"].string_value();
+    market.image = market_json["image"].string_value();
+    market.url = market_json["url"].string_value();
 
     float buy_no_cost_sum = 0.0f;
 
