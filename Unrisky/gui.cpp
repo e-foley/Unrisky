@@ -9,7 +9,7 @@
 #include <wx/listctrl.h>
 
 bool UnriskyGui::OnInit() {
-  MarketsFrame* frame = new MarketsFrame("Hello World", wxPoint(50, 50), wxSize(450, 340));
+  MarketsFrame* frame = new MarketsFrame("Unrisky", wxPoint(50, 50), wxSize(450, 340));
   wxPanel* panel = new wxPanel(frame, wxID_ANY);
   wxBoxSizer* sz_top = new wxBoxSizer(wxVERTICAL);
 
