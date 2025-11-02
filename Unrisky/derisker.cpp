@@ -55,7 +55,8 @@ void Derisker::buildMarketListJson(const std::stringstream& buffer, std::vector<
 
     market.advantage = market.contracts.size() - 1 - buy_no_cost_sum;
     MarketOwnership ownership;  // NOTE: We don't use this at all right now.
-    getIdealMarketOwnership(market, 850.00f, 0.10f, &ownership, &market.risk);
+    // TODO: Supply below arguments without magic numbers.
+    getIdealMarketOwnership(market, 3500.00f, 0.10f, &ownership, &market.risk);
     markets.emplace_back(market);
   }
 
