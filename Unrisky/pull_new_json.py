@@ -1,5 +1,9 @@
+try:
+	import requests
+except:
+	print("Install the `requests` module first; e.g., by using `python -m pip install requests`")
+	exit()
 
-import requests
 page_url = "https://www.predictit.org/api/marketdata/all/"
 r = requests.get(page_url)  # create HTTP response object
 
